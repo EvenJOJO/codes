@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>学习html5</title>
+		<link href="./main.css" type="text/css" rel="stylesheet"></link>
+	</head>
+	<body>
+		<canvas id="myCanvas"></canvas>
+		<canvas id="myCanvas2"></canvas>
+		<canvas id="myCanvas3"></canvas>
+		<canvas id="myCanvas4"></canvas>
+		<script>
+			var c = document.getElementById("myCanvas"); //获取要操作的canvas
+			c.width=200;
+			c.height=200;
+			var ctx = c.getContext("2d"); //获取该canvas的2D绘图环境对象
+			ctx.moveTo(10,10);   //定义绘画开始的位置
+			ctx.lineTo(150,50);  //画一条直线，结束点坐标是x=150,y=50
+			ctx.lineTo(50,150);  //以150，50为 起点，结束位置50,150		
+			ctx.lineTo(10,10);
+			var grd = ctx.createLinearGradient(0,0,150,0);  //定义线性渐变对象，设定渐变线起始点和结束点坐标，坐标格式为(起始点x,起始点y,结束点x,结束点y)
+			grd.addColorStop(0,"black");   //定义渐变线起点颜色
+			grd.addColorStop(0.5,"red");   //定义渐变线中间点的颜色
+			grd.addColorStop(1,"yellow");  //定义渐变线结束点的颜色
+			ctx.strokeStyle = grd;    //渐变线定义颜色
+			ctx.stroke();  
+			ctx.beginPath();  //告诉canvas咱们要重新绘制一条全新的路径了，之前画的东西从此再无关系隔离路径
+			ctx.moveTo(150,80); //设置新的起点
+			ctx.lineTo(170,180);
+			ctx.strokeStyle="red";  //color定义设定描边颜色为红色
+			ctx.stroke();
+			
+			var  c2 = document.getElementById("myCanvas2");
+			//感受图片描边。
+			c2.width=200;
+			c2.height=200;
+			var ctx2 = c2.getContext("2d");
+			var pic = new Image();
+			pic.src = "./5.jpg";
+			pic.onload = patternFill;     //在图片加载完成时执行绘图函数
+			function patternFill(){
+			var redTexture = ctx.createPattern(pic, "no-repeat");   //定义Pattern对象，设定填充图案为pic图片，填充形式为平铺
+			ctx2.moveTo(0,100);
+			ctx2.lineTo(200,100);
+			ctx2.lineWidth = 200;
+			ctx2.strokeStyle = redTexture; 
+			ctx2.stroke();
+			//lineCap是设定线段端点的形状（线帽）
+			var c3 = document.getElementById("myCanvas3");
+			c3.width=200;
+			c3.height=200;
+			var ctx3 = c3.getContext("2d");
+			ctx3.lineWidth=10;
+			ctx3.fillStyle="orange";
+			ctx3.font="bold 25px arial";
+			ctx3.fillText("lineCap",60,180);
+			ctx3.beginPath();
+			ctx3.lineCap="butt";
+			ctx3.moveTo(20,10);
+			ctx3.lineTo(180,10);
+			ctx3.strokeStyle="red";
+			ctx3.fillStyle="red";
+			ctx3.fillText("butt",60,36);
+			ctx3.stroke();
+			ctx3.beginPath();
+			ctx3.lineCap="round";
+			ctx3.moveTo(20,50);
+			ctx3.lineTo(180,50);
+			ctx3.strokeStyle="blue";
+			ctx3.fillStyle="blue";
+			ctx3.fillText("round",60,76);
+			ctx3.stroke();
+			ctx3.beginPath();
+			ctx3.lineCap="square";
+			ctx3.moveTo(20,90);
+			ctx3.lineTo(180,90);
+			ctx3.strokeStyle = "green";
+			ctx3.fillStyle="green";
+			ctx3.fillText("square",60,120);
+			ctx3.stroke();
+			var c4=document.getElementById("myCanvas4");
+			c4.width=200;
+			c4.height=200;
+			var ctx4=c4.getContext("2d");
+			ctx4.lineWidth=10;
+			ctx4.fillStyle="orange";
+			ctx4.font = 'bold 25px arial';
+			ctx4.fillText('lineJoin', 60,180);
+			ctx4.beginPath();
+			ctx4.moveTo(20,20);
+			ctx4.lineTo(80,40);
+			ctx4.lineTo(20,80);
+			ctx4.lineJoin="miter";
+			ctx4.font = 'bold 25px arial';
+			ctx4.fillStyle="red"
+			ctx4.fillText('miter', 100,46);
+			ctx4.strokeStyle="red";
+			ctx4.stroke();
+			ctx4.beginPath();
+			ctx4.moveTo(20,60);
+			ctx4.lineTo(80,80);
+			ctx4.lineTo(20,120);
+			ctx4.lineJoin="round";
+			ctx4.strokeStyle="blue";
+			ctx4.font = 'bold 25px arial';
+			ctx4.fillStyle="blue"
+			ctx4.fillText('round', 100,86);
+			ctx4.stroke();
+			ctx4.beginPath();
+			ctx4.moveTo(20,100);
+			ctx4.lineTo(80,120);
+			ctx4.lineTo(20,160);
+			ctx4.lineJoin="bevel";
+			ctx4.strokeStyle="green";
+			ctx4.font = 'bold 25px arial';
+			ctx4.fillStyle="green"
+			ctx4.fillText('bevel', 100,126);
+			ctx4.stroke();
+			}
+		</script>
+	</body>
+</html>
