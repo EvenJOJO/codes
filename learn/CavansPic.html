@@ -9,6 +9,10 @@
 		<canvas id="myCanvas2"></canvas>
 		<canvas id="myCanvas3"></canvas>
 		<canvas id="myCanvas4"></canvas>
+		<canvas id="myCanvas5"></canvas>
+		<canvas id="myCanvas6"></canvas>
+		<canvas id="myCanvas7"></canvas>
+		<canvas id="myCanvas8"></canvas>
 		<script>
 			var c = document.getElementById("myCanvas");
 			c.width=200;
@@ -75,7 +79,88 @@
 			ctx4.fillStyle = grd2;
 			ctx4.fillRect(40,40,100,100);
 			
+			var c5 = document.getElementById("myCanvas5");
+			var ctx5 = c5.getContext("2d");
+			c5.width=200;
+			c5.height=200;
+			ctx5.fillStyle="blue";
+			ctx5.fillRect(50,10,100,60);
+			ctx5.clearRect(80,30,20,20);
+			//重置画布大小消除之前定义过的样式、画笔位置（之前画布上的图形）
+			//c5.width=200;
+			//c5.height=200;
+			//ctx5.fillRect(50,10,100,60);
 			
+			var c6 = document.getElementById("myCanvas6");
+			var ctx6 = c6.getContext("2d"); //获取该canvas的2D绘图环境对象
+			c6.width=200;
+			c6.height=200;
+			//定义样式
+			ctx6.fillStyle = "blue";   
+			ctx6.strokeStyle = "red";
+			ctx6.lineWidth = "8";
+			ctx6.lineJoin = "miter";
+			//绘制多边形
+			ctx6.moveTo(10,10);
+			ctx6.lineTo(100,30);
+			ctx6.lineTo(120,80);
+			ctx6.lineTo(60,60);
+			ctx6.lineTo(10,10);
+			ctx6.closePath();//闭合描边路径，描边宽度导致的不闭合
+			ctx6.stroke();  //描边
+			ctx6.fill();    //填充
+			
+			var c7 = document.getElementById("myCanvas7");
+			var ctx7 = c7.getContext("2d");
+			c7.width=200;
+			c7.height=200;
+			ctx7.strokeStyle="#ccc";
+			ctx7.lineWidth=1;
+			ctx7.moveTo(100,20);
+			ctx7.lineTo(100,180);
+			ctx7.stroke();
+			ctx7.beginPath();
+			ctx7.moveTo(20,100);
+			ctx7.lineTo(180,100);
+			ctx7.stroke();
+			ctx7.font="arial";
+			ctx7.fillStyle="red";
+			ctx7.fillText("0度",180,108);
+			ctx7.fillText("90度",94,182);
+			ctx7.fillText("180度",0,104);
+			ctx7.fillText("270度",94,20);
+			ctx7.fillText("360度",170,94);
+			ctx7.beginPath();
+			ctx7.lineWidth="2";
+			ctx7.strokeStyle="green";
+			ctx7.arc(100,100,50,0,1/2*Math.PI);//圆形笔记，（圆心x，圆心y，半径，开始角度，结束角度）
+			ctx7.stroke();  //描边
+			ctx7.beginPath();
+			ctx7.strokeStyle="blue";
+			ctx7.arc(100,100,42,0,Math.PI);
+			ctx7.stroke();
+			ctx7.beginPath();
+			ctx7.strokeStyle="yellow";
+			ctx7.arc(100,100,34,0,1.5*Math.PI);
+			ctx7.stroke();
+			ctx7.beginPath();
+			ctx7.strokeStyle="red";
+			ctx7.arc(100,100,26,0,2*Math.PI);
+			ctx7.stroke();
+			ctx7.beginPath();
+			ctx7.strokeStyle="black";
+			ctx7.arc(100,100,18,-1/6*Math.PI,-1/2*Math.PI);
+			ctx7.stroke();
+			
+			var c8 = document.getElementById("myCanvas8");
+			c8.height=200;
+			c8.width=200;
+			var ctx8 = c8.getContext("2d"); //获取该canvas的2D绘图环境对象
+			ctx8.moveTo(20,20);
+			ctx8.lineTo(60,20);
+			ctx8.arcTo(100,20,100,60,40); // 创建圆弧路径起点切线末端坐标，结束点坐标，半径
+			ctx8.lineTo(100,100);
+			ctx8.stroke();   
 		</script>
 	</body>
 </html>
