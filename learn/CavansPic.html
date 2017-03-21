@@ -13,6 +13,8 @@
 		<canvas id="myCanvas6"></canvas>
 		<canvas id="myCanvas7"></canvas>
 		<canvas id="myCanvas8"></canvas>
+		<canvas id="myCanvas9"></canvas>
+		<canvas id="myCanvas10" width="490" height="270"></canvas>
 		<script>
 			var c = document.getElementById("myCanvas");
 			c.width=200;
@@ -161,6 +163,20 @@
 			ctx8.arcTo(100,20,100,60,40); // 创建圆弧路径起点切线末端坐标，结束点坐标，半径
 			ctx8.lineTo(100,100);
 			ctx8.stroke();   
+			
+			var c9 = document.getElementById("myCanvas9");
+			var ctx9 = c9.getContext("2d");
+			ctx9.moveTo(20,20);
+			ctx9.bezierCurveTo(20,100,200,100,200,20);//参数起点线段末端,终点线段末端，终点;
+			ctx9.stroke();
+			
+			var c10 = document.getElementById("myCanvas10");
+			var ctx10 = c10.getContext("2d"); //获取该canvas的2D绘图环境对象
+			ctx10.moveTo(52,37);   //确定起始点
+			//无方向的贝塞尔曲线
+			ctx10.quadraticCurveTo( 45, 175, 172, 157 );   //第一条线没有方向，终点末端，终点绘制第一条曲线
+			ctx10.bezierCurveTo( 298, 140, 337, 201, 312, 236 );  //绘制第二条曲线
+			ctx10.stroke();  //描边
 		</script>
 	</body>
 </html>

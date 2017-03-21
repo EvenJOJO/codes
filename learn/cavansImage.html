@@ -1,0 +1,99 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+  <style type="text/css" media="screen">
+    a #button {
+      fill:url("#button_gradient");
+      stroke:grey;
+    }
+    a:hover #button {
+      fill:url("#active_button_gradient") !important;
+      stroke:blue;
+    }
+  </style>
+
+  <script type="text/javascript">
+    var video1, video2, ctxSource1, ctxSource2, ctxDest, videoWidth, videoHeight, currentFrameSource1, currentFrameSource2;
+    
+    function start()
+    {
+      window.setInterval(runVideo,50);
+    }
+          
+    function init()
+    {
+      video1 = document.getElementById("video1");
+      videoWidth = video1.width;
+      videoHeight = video1.height;
+      video2 = document.getElementById("video2");
+      canvasSource1 = document.getElementById("canvasSource1");
+      canvasSource2 = document.getElementById("canvasSource2");
+      canvasDest = document.getElementById("canvasDest");
+      ctxSource1 = canvasSource1.getContext("2d");
+      ctxSource2 = canvasSource2.getContext("2d");
+      ctxDest = canvasDest.getContext("2d");
+      video1.play();
+      video2.play();
+    }
+  
+    function runVideo()
+    {
+      if (video1.paused || video1.ended) 
+      	return;
+      drawFrame();
+    }
+   
+    function drawFrame2() 
+    {
+      ctxSource1.drawImage(video1, 0, 0, videoWidth, videoHeight);
+      ctxSource2.drawImage(video2, 0, 0, videoWidth, videoHeight);
+    }
+  
+    function drawFrame() 
+    {
+      ctxSource1.drawImage(video1, 0, 0, videoWidth, videoHeight);
+      ctxSource2.drawImage(video2, 0, 0, videoWidth, videoHeight);
+      
+      currentFrameSource1 = ctxSource1.getImageData(0, 0, videoWidth, videoHeight);
+      currentFrameSource2 = ctxSource2.getImageData(0, 0, videoWidth, videoHeight);
+   
+      var n = currentFrameSource1.data.length / 4;
+      var r = 0, g = 0, b = 0, pixelIndex = 0;      
+      for (var i = 0; i < n; i++) 
+      {
+        // grab the RBG for each pixel
+        r = currentFrameSource1.data[i * 4 + 0];
+        g = currentFrameSource1.data[i * 4 + 1];
+        b = currentFrameSource1.data[i * 4 + 2];
+        
+        // console.log("r = " + r + ", g = " + g + ", b = " + b);
+  
+        // If this seems like a green pixel replace it:
+        if ( (r >= 0 && r <= 59) && (g >= 74 && g <= 144) && (b >= 0 && b <= 56) ) // Target green is (24, 109, 21), so look around those values.
+        {
+          pixelIndex = i * 4;
+          currentFrameSource1.data[pixelIndex] = currentFrameSource2.data[pixelIndex];
+          currentFrameSource1.data[pixelIndex + 1] = currentFrameSource2.data[pixelIndex + 1];
+          currentFrameSource1.data[pixelIndex + 2] = currentFrameSource2.data[pixelIndex + 2];
+          currentFrameSource1.data[pixelIndex + 3] = currentFrameSource2.data[pixelIndex + 3];
+        }
+      }
+      ctxDest.putImageData(currentFrameSource1, 0, 0);
+    } 
+  </script>
+</head>
+
+<body style="background-color:black" onload="init();"> 
+  <button onclick="start();" >Start</button>
+  <br />
+  <video id="video2" height="115px" width="140px" preload="true" autoplay="true" controls="true" loop="true" src="./mov_bbb.ogg"></video>
+  <video id="video1" height="115px" width="140px" preload="true" autoplay="true" controls="true" loop="true" src="./greenscreen.mp4"></video>
+  <p></p>
+  <canvas id="canvasDest"   style="-ms-transform:scale(2);position:absolute;top:300px;left:500px" height="115px" width="140px"></canvas>
+  <canvas id="canvasSource1" style="visibility:hidden" height="115px" width="140px"></canvas>
+  <canvas id="canvasSource2"  style="visibility:hidden" height="115px" width="140px"></canvas>
+</body>
+
+</html>

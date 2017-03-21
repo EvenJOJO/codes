@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>学习html5</title>
+		<link href="./main.css" type="text/css" rel="stylesheet"></link>
+	</head>
+	<body>
+		<canvas id="myCanvas"></canvas>
+		<canvas id="myCanvas2"></canvas>
+		<canvas id="myCanvas3"></canvas>
+		<canvas id="myCanvas4"></canvas>
+		<script>
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			ctx.moveTo(10,60);
+			ctx.lineTo(290,60);
+			ctx.stroke();
+			ctx.fillStyle="red";
+			ctx.font="italic 14px Arial";
+			ctx.textBaseline="alphabetic";
+			ctx.fillText("alphabetic",10,60);
+			ctx.textBaseline="top"; 
+			ctx.fillText("top",80,60);
+			ctx.textBaseline="bottom";
+			ctx.fillText("bottom",100,60);
+			ctx.textBaseline="middle";
+			ctx.fillText("middle",150,60);
+			ctx.textBaseline="hanging";
+			ctx.fillText("hanging",210,60);
+			
+			var c2 = document.getElementById("myCanvas2");
+			c2.width=200;
+			c2.height=200;
+			var ctx2 = c2.getContext("2d");
+			ctx2.moveTo(100,10);
+			ctx2.lineTo(100,190);
+			ctx2.stroke();
+			ctx2.fillStyle="red";
+			ctx2.font="italic 14px Arial";
+			ctx2.textAlign="start";
+			ctx2.fillText("start",100,40);
+			ctx2.textAlign="end"; 
+			ctx2.fillText("end",100,60);
+			ctx2.textAlign="left";
+			ctx2.fillText("left",100,90);
+			ctx2.textAlign="center";
+			ctx2.fillText("center",100,130);
+			ctx2.textAlign="right";
+			ctx2.fillText("right",100,180);
+			
+			var c3 = document.getElementById("myCanvas3");
+			var ctx3 = c3.getContext("2d");
+			ctx3.fillStyle="red";
+			ctx3.font="italic 30px Arial bold";
+			var thetext = "Here`s some words...";
+			var text_width = ctx3.measureText(thetext).width; //获得文本宽度
+			var x = 50; 
+			if( x + text_width <= c3.width ){  //如果文本不会超出画布则绘制文本
+				ctx3.fillText(thetext,x,60);
+			}
+		</script>
+	</body>
+</html>
